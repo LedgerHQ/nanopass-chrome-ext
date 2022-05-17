@@ -1,0 +1,39 @@
+<html>
+<head>
+  <link href="css/nanopass.css" rel="stylesheet">
+  <link href="css/manager.css" rel="stylesheet">
+  <script src="src/jquery-3.5.1.min.js"></script>
+  <script src="src/lottie.js"></script>
+  <script src="src/nanopass.js"></script>
+  <script src="src/ui.js"></script>
+  <script src="src/manager.js"></script>
+</head>
+<body>
+  <div class="main-container">
+    <h1>NanoPass manager</h1>
+    <button id="list">List passwords</button>
+    <button id="export">Export</button>
+    <button id="import">Import</button>
+    <input id="import-file" type="file" style="display: none"/>
+    <br>
+    <br>
+    <div id="passwords">
+      <table id="passwords">
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <div id="uiroot">
+    <div class="nanopass nanopass-confirm">
+      <div style="height: 75px; transform: scale(2.5) translate(-25px,0px)" id="anim-confirm"></div>
+      <div style="height: 75px" id="anim-success"></div>
+      <div style="height: 75px" id="anim-fail"></div>
+      <p id="nanopass-confirm-text"></p>
+    </div>
+    <div class="nanopass nanopass-alert">
+      <div style="height: 50px" id="anim-alert"></div>
+      <p id="nanopass-alert-text"></p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+body {
+  background-color: #fafafa; }
+
+div.main-container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto; }
+  div.main-container h1 {
+    font-weight: normal;
+    font-size: 4em; }
+  div.main-container div#passwords {
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    padding: 8px; }
+    div.main-container div#passwords table {
+      width: 100%;
+      border-collapse: collapse; }
+      div.main-container div#passwords table td {
+        padding: 6px; }
+      div.main-container div#passwords table td:first-child {
+        width: 100%; }
+      div.main-container div#passwords table tr:hover {
+        background-color: #fafafa; }
+      div.main-container div#passwords table button {
+        padding: 4px; }
+
+button {
+  font-family: 14px;
+  font-size: 14px;
+  border: none;
+  background: #3bc4ac;
+  border-radius: 4px;
+  color: white;
+  padding: 8px;
+  transition: background 0.5s; }
+
+button:hover {
+  border: none;
+  background: #30b49d; }
+
+/*# sourceMappingURL=manager.css.map */

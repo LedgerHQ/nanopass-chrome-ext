@@ -1,0 +1,32 @@
+{
+    "name": "NanoPass",
+    "version": "1.0",
+    "description": "NanoPass password manager chrome extension",
+    "background": {
+        "scripts": ["src/background.js"],
+        "persistent": false
+    },
+    "web_accessible_resources": [
+        "img/success.json",
+        "img/fail.json",
+        "img/nanos-validate.json",
+        "css/nanopass.css"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": [
+                "src/lottie.js",
+                "src/jquery-3.5.1.min.js",
+                "src/nanopass.js",
+                "src/ui.js",
+                "src/content.js"
+            ]
+        }
+    ],
+    "permissions": ["activeTab", "contextMenus"],
+    "icons": {
+        "16": "icon.png"
+    },
+    "manifest_version": 2
+}

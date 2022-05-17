@@ -1,0 +1,57 @@
+body {
+  background-color: #fafafa;
+}
+
+div.main-container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+
+  h1 {
+    font-weight: normal;
+    font-size: 4em;
+  }
+  
+  div#passwords {
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    padding: 8px;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      td {
+        padding: 6px;
+      }
+      
+      td:first-child {
+        width: 100%;
+      }
+      
+      tr:hover {
+        background-color: #fafafa;
+      }
+
+      button {
+        padding: 4px;
+      }
+    }
+  }
+}
+
+button {
+  font-family: 14px;
+  font-size: 14px;
+  border: none;
+  background:rgb(59, 196, 172);
+  border-radius: 4px;
+  color: white;
+  padding: 8px;
+  transition: background 0.5s;
+}
+
+button:hover {
+  border: none;
+  background:rgb(48, 180, 157);
+}
