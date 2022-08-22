@@ -18,7 +18,7 @@ function load_animations(){
     wrapper: $(ui_root).find("#anim-confirm")[0],
     loop: true,
     autoplay: false,
-    path: chrome.extension.getURL("img/nanos-validate.json")
+    path: chrome.runtime.getURL("img/nanos-validate.json")
   });
   anim_confirm.stop();
 
@@ -26,7 +26,7 @@ function load_animations(){
     wrapper: $(ui_root).find("#anim-success")[0],
     loop: false,
     autoplay: false,
-    path: chrome.extension.getURL("img/success.json")
+    path: chrome.runtime.getURL("img/success.json")
   });
   anim_success.stop();
 
@@ -34,7 +34,7 @@ function load_animations(){
     wrapper: $(ui_root).find("#anim-fail")[0],
     loop: false,
     autoplay: false,
-    path: chrome.extension.getURL("img/fail.json")
+    path: chrome.runtime.getURL("img/fail.json")
   });
   anim_fail.stop();
 
@@ -42,7 +42,7 @@ function load_animations(){
     wrapper: $(ui_root).find("#anim-alert")[0],
     loop: false,
     autoplay: false,
-    path: chrome.extension.getURL("img/fail.json")
+    path: chrome.runtime.getURL("img/fail.json")
   });
   anim_alert.stop();
 }

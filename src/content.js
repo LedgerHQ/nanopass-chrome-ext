@@ -45,7 +45,7 @@ function populate_html(ready_callback){
   // Now load a stylesheet in the shadow DOM tree for the UI
   let link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = chrome.extension.getURL('css/nanopass.css');
+  link.href = chrome.runtime.getURL('css/nanopass.css');
   link.onload = ready_callback;
   shadow.append(link);
   // And finally append the UI elements
