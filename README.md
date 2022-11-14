@@ -13,6 +13,11 @@ Requires Chrome version >= 93.
 Requires enabling experimental web platform features:
 chrome://flags/#enable-experimental-web-platform-features
 
+## Installation
+
+Download the [packed extension zip file nanopass-chrome-ext.zip](nanopass-chrome-ext.zip).
+Go to [chrome extensions manager](chrome://extensions/) and drag-and-drop the zip file there.
+
 ## Contributing
 
 I'm not a web technologies expert, nor a graphic designer, this project can
