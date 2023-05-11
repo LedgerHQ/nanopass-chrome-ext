@@ -24,7 +24,7 @@ async function list_passwords(){
   let wallet = await get_wallet();
   if (wallet == null)
     return;
-  $('table#passwords tbody').empty();
+  $('div.elt-password').remove();
   let size = await wallet.get_size();
   let names = [];
   for (let i = 0; i < size; i++) {

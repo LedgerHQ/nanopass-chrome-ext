@@ -172,7 +172,7 @@ class Wallet {
       if (this.transport === Transport.USB) {
         this.dev.sendReport(0, frame);
       } else if (this.transport === Transport.BLE) {
-        this.cwrite.writeValueWithResponse(frame);
+        await this.cwrite.writeValueWithResponse(frame);
       }
       seq_id++;
     }
