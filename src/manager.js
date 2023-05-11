@@ -100,10 +100,28 @@ async function import_file_selected(evt){
   );
 }
 
+async function display_transport(){
+  let transport = await chrome.storage.local.get({"transport": Transport.USB});
+  $('button#transport').text(transport.transport);
+}
+
+async function switch_transport(){
+  let transport = (await chrome.storage.local.get({"transport": Transport.USB})).transport;
+  if (transport === Transport.USB) {
+    transport = Transport.BLE;
+  } else if (transport === Transport.BLE) {
+    transport = Transport.USB;
+  }
+  chrome.storage.local.set({"transport": transport});
+  display_transport();
+}
+
 $(document).ready(() => {
   ui_init(document.getElementById('uiroot'));
+  display_transport();
   $('button#list').click(list_passwords);
   $('button#export').click(export_passwords);
   $('button#import').click(import_passwords);
+  $('button#transport').click(switch_transport);
   $('input#import-file').change(import_file_selected);
 });

@@ -197,7 +197,7 @@ class Wallet {
     let input_buffer = null;
     let header_length = null;
     if (this.transport === Transport.USB) {
-      input_buffer = e.buffer;
+      input_buffer = e.data.buffer;
       header_length = 5;
     } else if (this.transport === Transport.BLE) {
       input_buffer = e.target.value.buffer
@@ -456,7 +456,9 @@ class Wallet {
  */
 async function get_wallet(){
   if (wallet == null) {
-    wallet = new Wallet(Transport.BLE);
+    let transport = (await chrome.storage.local.get({"transport": Transport.USB})).transport;
+    console.log("DEBUG transport", transport);
+    wallet = new Wallet(transport);
     await wallet.init();
     let version = await wallet.get_version();
     if ((version == null) || (version.name != "nanopass")){
