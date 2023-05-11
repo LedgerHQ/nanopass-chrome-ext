@@ -35,17 +35,20 @@ div.nanopass {
     width: auto;
     text-align: right; }
   div.nanopass button {
-    font-family: 14px;
-    font-size: 14px;
-    border: none;
-    background: #3bc4ac;
-    border-radius: 4px;
-    color: white;
-    padding: 8px;
-    transition: background 0.5s; }
+    width: 140px;
+    height: 40px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 19px;
+    color: #BBB0FF;
+    border: 1px solid #BBB0FF;
+    border-radius: 20px;
+    margin: 5px;
+    background: #272727;
+  }
   div.nanopass button:hover {
-    border: none;
-    background: #30b49d; }
+        background: #e8e4ff; }
   div.nanopass p {
     color: #333;
     font-size: 14px;

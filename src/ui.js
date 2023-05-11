@@ -99,6 +99,16 @@ function alert_dialog_show(html){
   $(ui_root).find('div.nanopass-alert').delay(2000).fadeOut(200);
 }
 
+async function add_password_dialog_show(){
+  $(ui_root).find('div.nanopass-new').fadeIn(200);
+  $(ui_root).find('input#nanopass-new-name').focus();
+}
+
+async function update_password_dialog_show(name){
+  $(ui_root).find('div.nanopass-new').fadeIn(200);
+  $(ui_root).find('input#nanopass-new-name').val(name);
+  $(ui_root).find('input#nanopass-new-login').focus();
+}
 
 async function new_password_dialog_show(){
   $(ui_root).find('div.nanopass-new').fadeIn(200);

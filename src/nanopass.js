@@ -146,6 +146,7 @@ class Wallet {
   }
 
   async send_data(data){
+    console.log(data);
     let data_with_len = new Uint8Array(2 + data.length);
     data_with_len.set([(data.length >> 8) & 0xff, data.length & 0xff], 0);
     data_with_len.set(data, 2);
@@ -194,6 +195,7 @@ class Wallet {
    * complete.
    */
   input_handler(e){
+    console.log(e);
     let input_buffer = null;
     let header_length = null;
     if (this.transport === Transport.USB) {

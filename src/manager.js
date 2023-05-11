@@ -4,12 +4,20 @@ async function remove(){
   let wallet = await get_wallet();
   if (wallet == null)
     return;
-  let name = $(this).closest('tr').data('name');
+  let name = $(this).val();
   confirm_dialog_show("Confirm password removal on device...");
   wallet.delete_by_name(name).then(
     () => { confirm_dialog_ok("Password removed!"); },
     () => { confirm_dialog_fail("Password removal denied!"); }
   );
+}
+
+async function update(){
+  let wallet = await get_wallet();
+  if (wallet == null)
+    return;
+  let name = $(this).val();
+  populate_html(() => { update_password_dialog_show(name) }, "Update");
 }
 
 async function list_passwords(){
@@ -26,14 +34,15 @@ async function list_passwords(){
   }
   confirm_dialog_ok('Listing passwords...');
   for (const name of names){
-    $('table#passwords tbody').append(
-      '<tr data-name="' + name + '">' +
-      '  <td>' + name + '</td>' +
-      '  <td><button class="remove">Remove</button></td>' +
-      '</tr>'
-    );
+    $( "div#passwords" ).append(
+      '<div class="elt-password"> <p class="name"> '+ name +
+      '</p><div class="button-right">'+
+      '<button class="update" value="' + name +'">Update</button>'+
+      '<button class="remove" value="' + name +'">Remove</button></div>'+
+      '</div>');
   }
   $("button.remove").click(remove);
+  $("button.update").click(update);
 }
 
 async function export_passwords(){
@@ -62,6 +71,10 @@ async function export_passwords(){
     }
   );
 }
+function add_passwords(){
+  populate_html(() => { add_password_dialog_show("") }, "Set");
+}
+
 
 function import_passwords(){
   $('input#import-file').trigger('click');
@@ -123,5 +136,6 @@ $(document).ready(() => {
   $('button#export').click(export_passwords);
   $('button#import').click(import_passwords);
   $('button#transport').click(switch_transport);
+  $('button#add-password').click(add_passwords);
   $('input#import-file').change(import_file_selected);
 });

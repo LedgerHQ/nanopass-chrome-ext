@@ -1,41 +1,103 @@
 body {
-  background-color: #fafafa; }
+  background-color: D5D5D5; }
 
 div.main-container {
   max-width: 800px;
   margin-left: auto;
-  margin-right: auto; }
+  margin-right: auto; 
+}
+div.main-title {
+  border-radius: 10px;
+  background-color: #f1f1f1;
+  padding: 10;
+  margin-bottom: 20;
+}
+div.main-button {
+  padding-left: 650;
+}
+div.end-button {
+  text-align: right;
+}
+div.main-container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
   div.main-container h1 {
+    border-radius: 10px;
     font-weight: normal;
-    font-size: 4em; }
+    font-size: 3em;
+    font-weight: bold;
+    background-color: #f1f1f1;
+  }
   div.main-container div#passwords {
-    background-color: #f4f4f4;
     border-radius: 4px;
-    padding: 8px; }
-    div.main-container div#passwords table {
-      width: 100%;
-      border-collapse: collapse; }
-      div.main-container div#passwords table td {
-        padding: 6px; }
-      div.main-container div#passwords table td:first-child {
-        width: 100%; }
-      div.main-container div#passwords table tr:hover {
-        background-color: #fafafa; }
-      div.main-container div#passwords table button {
-        padding: 4px; }
+    padding: 8px;
+    margin-top: 30;
+    margin-bottom: 30;
+  }
+    div.main-container div#passwords div.elt-password {
+      background: #272727;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      margin: 5px;
+      padding: 10px;
+      color : #f1f1f1;
+      font-weight: 600;
+      font-size: 16px;
+      width: 96%;
+      display:table;
+    }
+    div.main-container div#passwords div.elt-password:hover {
+      background: #3C3C3C;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      margin: 5px;
+      padding: 10px;
+      font-weight: 600;
+      font-size: 16px;
+      width: 96%;
+     }
 
 button {
-  font-family: 14px;
-  font-size: 14px;
-  border: none;
-  background: #3bc4ac;
-  border-radius: 4px;
-  color: white;
-  padding: 8px;
-  transition: background 0.5s; }
+  width: 140px;
+  height: 40px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #BBB0FF;
+  border: 1px solid #BBB0FF;
+  border-radius: 20px;
+  margin: 5px;
+  background: #272727;
+ }
 
-button:hover {
-  border: none;
-  background: #30b49d; }
+ button:hover {
+  background: #e8e4ff;
+}
+
+  button.remove{
+    background: #F57375;
+    border-radius: 500px;
+    border: 1px solid #F57375;
+    color: white;
+  }
+
+  button.update{
+    background: #BBB0FF;
+    border-radius: 500px;
+    border: 1px solid #BBB0FF;
+    color: white;
+  }
+
+div.button-right{
+  text-align: right;
+  display:table-cell;
+}
+
+p.name{
+  display:table-cell;
+}
 
 /*# sourceMappingURL=manager.css.map */

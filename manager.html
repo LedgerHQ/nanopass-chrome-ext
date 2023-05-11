@@ -7,23 +7,30 @@
   <script src="src/nanopass.js"></script>
   <script src="src/ui.js"></script>
   <script src="src/manager.js"></script>
+  <script src="src/content.js"></script>
 </head>
 <body>
   <div class="main-container">
-    <h1>NanoPass manager</h1>
-    <button id="list">List passwords</button>
-    <button id="export">Export</button>
-    <button id="import">Import</button>
-    <button id="transport">Transport</button>
+    <div class="main-title">
+      <img src="ledger.png">
+      <h1>NanoPass Manager</h1>
+    </div>
+    <div class="main-button">
+      <button id="list">List passwords</button>
+      <button id="transport">Transport</button>
+    </div>
     <input id="import-file" type="file" style="display: none"/>
-    <br>
-    <br>
     <div id="passwords">
-      <table id="passwords">
-        <tbody></tbody>
-      </table>
+    </div>
+    <div style="display:table;  width: 100%;">
+      <button style="display:table-cell;" id="add-password">Add Password</button>
+      <div style="display:table-cell;" class="end-button">
+        <button id="export">Export</button>
+        <button id="import">Import</button>
+      </div>
     </div>
   </div>
+
   <div id="uiroot">
     <div class="nanopass nanopass-confirm">
       <div style="height: 75px; transform: scale(2.5) translate(-25px,0px)" id="anim-confirm"></div>
@@ -36,5 +43,6 @@
       <p id="nanopass-alert-text"></p>
     </div>
   </div>
+
 </body>
 </html>
