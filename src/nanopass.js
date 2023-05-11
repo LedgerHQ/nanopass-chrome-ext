@@ -2,10 +2,15 @@
 
 var wallet = null;
 
+const Transport = {
+  USB: "USB",
+  BLE: "BLE"
+}
+
 /**
  * Try to get WebHID NanoS device in NanoPass application
  */
-async function get_device(){
+async function get_device_usb(){
   // There can be differen productId for NanoS, so filter only on vendorId
   filters = [{ vendorId: 0x2c97 }];
   // Try to get directly the device. This will work without prompting user
@@ -17,6 +22,15 @@ async function get_device(){
     devices = await navigator.hid.requestDevice({filters: filters});
   }
   return devices[0];
+}
+
+/**
+ * Try to get WebBLE NanoS device in NanoPass application
+ */
+async function get_device_ble(){
+  filters = [{ namePrefix: "Nano" }];
+  let device = await navigator.bluetooth.requestDevice({ filters: filters, optionalServices: ["13d63400-2c97-0004-0000-4c6564676572"] });
+  return device;
 }
 
 // Trick from https://twitter.com/joseph_silber/status/809176159858655234/photo/1
@@ -36,7 +50,12 @@ function defer(){
 }
 
 class Wallet {
-  constructor (){}
+  /**
+   * @param transport Transport medium: Transport.USB or Transport.BLE.
+   */
+  constructor (transport){
+    this.transport = transport;
+  }
 
   /**
    * @param s A string to be encoded as bytes.
@@ -101,9 +120,21 @@ class Wallet {
   }
 
   async init(){
-    this.dev = await get_device();
-    await this.dev.open();
-    this.dev.oninputreport = e => { this.input_handler(e) };
+    if (this.transport === Transport.USB) {
+      this.dev = await get_device_usb();
+      await this.dev.open();
+      this.dev.oninputreport = e => { this.input_handler(e) };
+    } else if (this.transport === Transport.BLE) {
+      this.dev = await get_device_ble();
+      let gatt_server = await this.dev.gatt.connect();
+      let service = await gatt_server.getPrimaryService("13d63400-2c97-0004-0000-4c6564676572");
+      let characteristics = await service.getCharacteristics();
+      let cwrite = characteristics[1];
+      let cread = characteristics[0];
+      this.cwrite = cwrite;
+      await cread.startNotifications();
+      cread.addEventListener("characteristicvaluechanged", e => { this.input_handler(e) });
+    }
     this.response_defer = null;
     // Following used to aggregate partial responses to get complete APDU
     // response
@@ -120,14 +151,28 @@ class Wallet {
     data_with_len.set(data, 2);
     let offset = 0;
     let seq_id = 0;
+    let header_length = null;
+    if (this.transport === Transport.USB) {
+      header_length = 5;
+    } else if (this.transport === Transport.BLE ) {
+      header_length = 3;
+    }
     while (offset < data_with_len.length){
-      let chunk_size = Math.min(data_with_len.length, 64 - 5); // 5 is header length
-      let frame = new Uint8Array(chunk_size + 5);
-      frame.set([1, 1, 5, (seq_id >> 8) & 0xff, seq_id & 0xff,
-          (chunk_size >> 8) & 0xff, chunk_size & 0xff], 0);
-      frame.set(data_with_len.slice(offset, offset + chunk_size), 5);
+      let chunk_size = Math.min(data_with_len.length, 64 - header_length);
+      let frame = new Uint8Array(chunk_size + header_length);
+      if (this.transport === Transport.USB) {
+       frame.set([1, 1, 5, (seq_id >> 8) & 0xff, seq_id & 0xff,
+         (chunk_size >> 8) & 0xff, chunk_size & 0xff], 0);
+      } else if (this.transport === Transport.BLE) {
+        frame.set([0x05, (seq_id >> 8) & 0xff, seq_id & 0xff], 0);
+      }
+      frame.set(data_with_len.slice(offset, offset + chunk_size), header_length);
       offset += chunk_size;
-      this.dev.sendReport(0, frame);
+      if (this.transport === Transport.USB) {
+        this.dev.sendReport(0, frame);
+      } else if (this.transport === Transport.BLE) {
+        this.cwrite.writeValueWithResponse(frame);
+      }
       seq_id++;
     }
   }
@@ -149,16 +194,25 @@ class Wallet {
    * complete.
    */
   input_handler(e){
-    let frame = new Uint8Array(e.data.buffer);
+    let input_buffer = null;
+    let header_length = null;
+    if (this.transport === Transport.USB) {
+      input_buffer = e.buffer;
+      header_length = 5;
+    } else if (this.transport === Transport.BLE) {
+      input_buffer = e.target.value.buffer
+      header_length = 3;
+    }
+    let frame = new Uint8Array(input_buffer);
     let chunk = null;
     if (this.apdu_state.chunks.length == 0){
       // First chunk of the response APDU.
-      let length = (frame[5] << 8) + frame[6];
-      chunk = frame.slice(7, frame.length);
+      let length = (frame[header_length] << 8) + frame[header_length + 1];
+      chunk = frame.slice(5, frame.length);
       this.apdu_state.expected_length = length;
       this.apdu_state.received_length = 0;
     } else {
-      chunk = frame.slice(5, frame.length);
+      chunk = frame.slice(header_length, frame.length);
     }
     this.apdu_state.chunks.push(chunk);
     this.apdu_state.received_length += chunk.length;
@@ -402,7 +456,7 @@ class Wallet {
  */
 async function get_wallet(){
   if (wallet == null) {
-    wallet = new Wallet();
+    wallet = new Wallet(Transport.BLE);
     await wallet.init();
     let version = await wallet.get_version();
     if ((version == null) || (version.name != "nanopass")){
