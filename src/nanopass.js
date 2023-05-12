@@ -146,7 +146,6 @@ class Wallet {
   }
 
   async send_data(data){
-    console.log(data);
     let data_with_len = new Uint8Array(2 + data.length);
     data_with_len.set([(data.length >> 8) & 0xff, data.length & 0xff], 0);
     data_with_len.set(data, 2);
@@ -195,7 +194,6 @@ class Wallet {
    * complete.
    */
   input_handler(e){
-    console.log(e);
     let input_buffer = null;
     let header_length = null;
     if (this.transport === Transport.USB) {
@@ -210,7 +208,7 @@ class Wallet {
     if (this.apdu_state.chunks.length == 0){
       // First chunk of the response APDU.
       let length = (frame[header_length] << 8) + frame[header_length + 1];
-      chunk = frame.slice(5, frame.length);
+      chunk = frame.slice(header_length + 2, frame.length);
       this.apdu_state.expected_length = length;
       this.apdu_state.received_length = 0;
     } else {
@@ -459,7 +457,6 @@ class Wallet {
 async function get_wallet(){
   if (wallet == null) {
     let transport = (await chrome.storage.local.get({"transport": Transport.USB})).transport;
-    console.log("DEBUG transport", transport);
     wallet = new Wallet(transport);
     await wallet.init();
     let version = await wallet.get_version();
