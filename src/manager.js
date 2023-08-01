@@ -1,4 +1,9 @@
 /* Script included by the manager.html page */
+function ispopup (){
+  return (typeof chrome != undefined && chrome.extension) ?
+      chrome.extension.getViews({ type: "popup" }).length > 0 : null;
+}
+
 
 async function remove(){
   let wallet = await get_wallet();
@@ -20,6 +25,31 @@ async function update(){
   populate_html(() => { update_password_dialog_show(name) }, "Update");
 }
 
+async function view(){
+  let wallet = await get_wallet();
+  if (wallet == null)
+    return;
+  let name = $(this).val();
+  let res = wallet.has_name(name);
+  has_name = await res;
+  if (!has_name){
+    alert_dialog_show("Credentials for <i>" + name + "</i> not found");
+    return;
+  }
+  confirm_dialog_show("Confirm password access on device...");
+  res = wallet.get_by_name(name);
+  entry = await res;
+  if (entry != null){
+    confirm_dialog_ok("Access to password granted!");
+    let value = entry.password;
+    let login = entry.login;
+    populate_html(() => { view_password_dialog_show(name,login,value) }, "Update");
+  } else {
+    confirm_dialog_fail("Access to password denied!");
+  }
+
+}
+
 async function list_passwords(){
   let wallet = await get_wallet();
   if (wallet == null)
@@ -37,12 +67,14 @@ async function list_passwords(){
     $( "div#passwords" ).append(
       '<div class="elt-password"> <p class="name"> '+ name +
       '</p><div class="button-right">'+
+      '<button class="view" value="' + name +'">View</button>'+
       '<button class="update" value="' + name +'">Update</button>'+
       '<button class="remove" value="' + name +'">Remove</button></div>'+
       '</div>');
   }
   $("button.remove").click(remove);
   $("button.update").click(update);
+  $("button.view").click(view);
 }
 
 async function export_passwords(){
@@ -72,7 +104,12 @@ async function export_passwords(){
   );
 }
 function add_passwords(){
-  populate_html(() => { add_password_dialog_show("") }, "Set");
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+    let url = tabs[0].url;
+    let test = new URL(url);
+    populate_html(() => { add_password_dialog_show(test.origin) });
+    // use `url` here inside the callback because it's asynchronous!
+  });
 }
 
 
@@ -121,7 +158,13 @@ async function display_transport(){
 async function switch_transport(){
   let transport = (await chrome.storage.local.get({"transport": Transport.USB})).transport;
   if (transport === Transport.USB) {
-    transport = Transport.BLE;
+    let popup = ispopup();
+    if (!popup){
+      transport = Transport.BLE;
+    }
+    else {
+      chrome.tabs.create({ url: chrome.runtime.getURL('manager.html') });
+    }
   } else if (transport === Transport.BLE) {
     transport = Transport.USB;
   }
