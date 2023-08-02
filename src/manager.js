@@ -107,7 +107,7 @@ function add_passwords(){
   chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
     let url = tabs[0].url;
     let test = new URL(url);
-    populate_html(() => { add_password_dialog_show(test.origin) });
+    populate_html(() => { add_password_dialog_show(test.hostname) });
     // use `url` here inside the callback because it's asynchronous!
   });
 }
