@@ -125,7 +125,6 @@ async function new_password_dialog_show(){
   let name = window.location.hostname;
   $(ui_root).find('input#nanopass-new-name').val(name);
   $(ui_root).find('input#nanopass-new-login').focus();
-  $(ui_root).find('input#nanopass-new-name').val("");
   $(ui_root).find('input#nanopass-new-login').val("");
 }
 

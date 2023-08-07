@@ -105,9 +105,16 @@ async function export_passwords(){
 }
 function add_passwords(){
   chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-    let url = tabs[0].url;
-    let test = new URL(url);
-    populate_html(() => { add_password_dialog_show(test.hostname) });
+
+    let popup = ispopup();
+    if (popup){ 
+      let url = tabs[0].url;
+      let test = new URL(url);
+      populate_html(() => { add_password_dialog_show(test.hostname) });
+    }
+    else {
+      populate_html(() => { add_password_dialog_show("") }); 
+    }
     // use `url` here inside the callback because it's asynchronous!
   });
 }

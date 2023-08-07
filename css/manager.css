@@ -1,5 +1,5 @@
 body {
-  background-color: D5D5D5; }
+  background-color: #f5f5f5; }
 
 div.main-container {
   max-width: 800px;
@@ -8,7 +8,7 @@ div.main-container {
 }
 div.main-title {
   border-radius: 10px;
-  background-color: #f1f1f1;
+  background-color: #FF5300;
   padding: 10;
   margin-bottom: 20;
   display: grid;
@@ -17,6 +17,9 @@ div.main-title {
 div.lg-image{
   margin-top: auto;
   margin-bottom: auto;
+}
+img {
+  width: 50%;
 }
 div.main-button {
   padding-left: 610;
@@ -32,9 +35,8 @@ div.main-container {
   div.main-container h1 {
     border-radius: 10px;
     font-weight: normal;
-    font-size: 3em;
+    font-size: em;
     font-weight: bold;
-    background-color: #f1f1f1;
   }
   div.main-container div#passwords {
     border-radius: 4px;
@@ -43,7 +45,7 @@ div.main-container {
     margin-bottom: 30;
   }
     div.main-container div#passwords div.elt-password {
-      background: #f1f1f1;
+      background: #f5f5f5;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 10px;
       margin: 5px;
@@ -62,7 +64,7 @@ div.main-container {
       font-weight: 600;
       font-size: 16px;
       width: 96%;
-      color : #f1f1f1;
+      color : #f5f5f5;
      }
 
 button {
@@ -74,7 +76,8 @@ button {
   line-height: 19px;
   border-radius: 5px;
   margin: 5px;
-  background: #f1f1f1;
+  border: 1px solid #D4A0FF;
+  background: #D4A0FF;
  }
 
  button:hover {
@@ -92,9 +95,9 @@ button {
 
   button.update{
 
-    background: #BBB0FF;
+    background: #D4A0FF;
     border-radius: 5px;
-    border: 1px solid #BBB0FF;
+    border: 1px solid #D4A0FF;
     color: white;
     width: 80px;
     height: 25px;
@@ -102,9 +105,9 @@ button {
 
   button.view{
 
-    background: #BBB0FF;
+    background: #D4A0FF;
     border-radius: 5px;
-    border: 1px solid #BBB0FF;
+    border: 1px solid #D4A0FF;
     color: white;
     width: 80px;
     height: 25px;
