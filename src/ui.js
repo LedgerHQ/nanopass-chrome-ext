@@ -99,15 +99,25 @@ function alert_dialog_show(html){
   $(ui_root).find('div.nanopass-alert').delay(2000).fadeOut(200);
 }
 
-async function add_password_dialog_show(){
+async function add_password_dialog_show(url){
   $(ui_root).find('div.nanopass-new').fadeIn(200);
-  $(ui_root).find('input#nanopass-new-name').focus();
+  $(ui_root).find('input#nanopass-new-name').val(url);
+  $(ui_root).find('input#nanopass-new-password').val("");
+  $(ui_root).find('input#nanopass-new-login').val("");
 }
 
 async function update_password_dialog_show(name){
   $(ui_root).find('div.nanopass-new').fadeIn(200);
   $(ui_root).find('input#nanopass-new-name').val(name);
-  $(ui_root).find('input#nanopass-new-login').focus();
+}
+
+async function view_password_dialog_show(name, login, value){
+  $(ui_root).find('div.nanopass-new').fadeIn(200);
+  $(ui_root).find('input#nanopass-new-name').val(name);
+  $(ui_root).find('input#nanopass-new-login').val(login);
+  $(ui_root).find('input#nanopass-new-password').val(value);
+  $(ui_root).find('button#nanopass-new-submit').hide();
+  $(ui_root).find('span#nanopass-discret').hide();
 }
 
 async function new_password_dialog_show(){
@@ -115,6 +125,7 @@ async function new_password_dialog_show(){
   let name = window.location.hostname;
   $(ui_root).find('input#nanopass-new-name').val(name);
   $(ui_root).find('input#nanopass-new-login').focus();
+  $(ui_root).find('input#nanopass-new-login').val("");
 }
 
 

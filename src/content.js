@@ -79,7 +79,7 @@ function populate_html(ready_callback){
     '    <tr>' +
     '      <td></td>' +
     '      <td>' +
-    '        <span class="nanopass-discret">Leave blank to generate randomly</span>' +
+    '        <span id="nanopass-discret" class="nanopass-discret">Leave blank to generate randomly</span>' +
     '      </td>' +
     '    </tr>' +
     '    <tr>' +

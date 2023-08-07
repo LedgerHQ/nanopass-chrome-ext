@@ -1,5 +1,5 @@
 body {
-  background-color: D5D5D5; }
+  background-color: #f5f5f5; }
 
 div.main-container {
   max-width: 800px;
@@ -8,12 +8,21 @@ div.main-container {
 }
 div.main-title {
   border-radius: 10px;
-  background-color: #f1f1f1;
+  background-color: #FF5300;
   padding: 10;
   margin-bottom: 20;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+}
+div.lg-image{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+img {
+  width: 50%;
 }
 div.main-button {
-  padding-left: 650;
+  padding-left: 610;
 }
 div.end-button {
   text-align: right;
@@ -26,9 +35,8 @@ div.main-container {
   div.main-container h1 {
     border-radius: 10px;
     font-weight: normal;
-    font-size: 3em;
+    font-size: em;
     font-weight: bold;
-    background-color: #f1f1f1;
   }
   div.main-container div#passwords {
     border-radius: 4px;
@@ -37,12 +45,11 @@ div.main-container {
     margin-bottom: 30;
   }
     div.main-container div#passwords div.elt-password {
-      background: #272727;
+      background: #f5f5f5;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 10px;
       margin: 5px;
-      padding: 10px;
-      color : #f1f1f1;
+      padding-left: 10px;
       font-weight: 600;
       font-size: 16px;
       width: 96%;
@@ -53,24 +60,24 @@ div.main-container {
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       border-radius: 10px;
       margin: 5px;
-      padding: 10px;
+      padding-left: 10px;
       font-weight: 600;
       font-size: 16px;
       width: 96%;
+      color : #f5f5f5;
      }
 
 button {
-  width: 140px;
-  height: 40px;
+  width: 130px;
+  height: 30px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 200;
   font-size: 16px;
   line-height: 19px;
-  color: #BBB0FF;
-  border: 1px solid #BBB0FF;
-  border-radius: 20px;
+  border-radius: 5px;
   margin: 5px;
-  background: #272727;
+  border: 1px solid #D4A0FF;
+  background: #D4A0FF;
  }
 
  button:hover {
@@ -79,16 +86,31 @@ button {
 
   button.remove{
     background: #F57375;
-    border-radius: 500px;
+    border-radius: 5px;
     border: 1px solid #F57375;
     color: white;
+    width: 80px;
+    height: 25px;
   }
 
   button.update{
-    background: #BBB0FF;
-    border-radius: 500px;
-    border: 1px solid #BBB0FF;
+
+    background: #D4A0FF;
+    border-radius: 5px;
+    border: 1px solid #D4A0FF;
     color: white;
+    width: 80px;
+    height: 25px;
+  }
+
+  button.view{
+
+    background: #D4A0FF;
+    border-radius: 5px;
+    border: 1px solid #D4A0FF;
+    color: white;
+    width: 80px;
+    height: 25px;
   }
 
 div.button-right{
