@@ -61,4 +61,10 @@ div.nanopass {
 div.nanopass-new table {
   width: 100%; }
 
+div.nanopass-export pre {
+  width: 100%;
+  color:#272727;
+  line-break: anywhere;
+  text-wrap : wrap;
+}
 /*# sourceMappingURL=nanopass.css.map */

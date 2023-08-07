@@ -97,6 +97,7 @@ async function export_passwords(){
       }
       console.log(data);
       confirm_dialog_ok('Password exported!');
+      export_info_show(JSON.stringify(data));
     },
     () => {
       confirm_dialog_fail("Passwords export denied!");
@@ -188,4 +189,5 @@ $(document).ready(() => {
   $('button#transport').click(switch_transport);
   $('button#add-password').click(add_passwords);
   $('input#import-file').change(import_file_selected);
+  $('button#export-ok').click(close_export_panel);
 });
