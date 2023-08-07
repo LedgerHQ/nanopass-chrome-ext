@@ -91,6 +91,15 @@ function confirm_dialog_fail(text){
   $(ui_root).find('div.nanopass-confirm').delay(2000).fadeOut(200);
 }
 
+function export_info_show(text){
+  $(ui_root).find('#export-info-text').html(text);
+  $(ui_root).find('div.nanopass-export').fadeIn(200);
+}
+
+function close_export_panel(){
+  $(ui_root).find('div.nanopass-export').delay(200).fadeOut(200);
+}
+
 
 function alert_dialog_show(html){
   $(ui_root).find('#nanopass-alert-text').html(html);
